@@ -47,7 +47,7 @@ jobs:
         run: java -jar build/bob.jar --platform x86_64-darwin --architectures x86_64-darwin bundle
       
       - name: Bundle iOS
-        run: java -jar build/bob.jar --platform armv7-darwin --architectures armv7-darwin,arm64-darwin
+        run: java -jar build/bob.jar --platform arm64-darwin
       
       - name: Bundle Android
         run: java -jar build/bob.jar --platform armv7-android --architectures armv7-android,arm64-android
