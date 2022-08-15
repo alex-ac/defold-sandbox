@@ -44,7 +44,7 @@ jobs:
         run: java -jar build/bob.jar --platform js-web --architectures js-web,wasm-web bundle
       
       - name: Bundle Mac
-        run: java -jar build/bob.jar --platform x86_64-darwin --architectures x86_64-darwin,arm64-darwin bundle
+        run: java -jar build/bob.jar --platform x86_64-darwin --architectures x86_64-darwin bundle
       
       - name: Bundle iOS
         run: java -jar build/bob.jar --platform armv7-darwin --architectures armv7-darwin,arm64-darwin
