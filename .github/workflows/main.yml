@@ -115,7 +115,7 @@ jobs:
       
       - name: Bundle iOS
         run: |
-          java -jar build/bob.jar --platform arm64-darwin --bundle-output build/bundles/ios bundle
+          java -jar build/bob.jar --platform arm64-darwin --bundle-output build/bundles/ios --verbose bundle
 
       - uses: actions/upload-artifact@v3
         with:
