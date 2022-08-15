@@ -38,19 +38,65 @@ jobs:
         run: java -jar build/bob.jar --archive build
       
       - name: Bundle linux
-        run: java -jar build/bob.jar --platform x86_64-linux bundle
+        run: |
+          java -jar build/bob.jar --platform x86_64-linux --bundle-output build/bundles/linux bundle
+          tar -cvf build/bundles/defold-sandbox-linux.tar.gz -C build/bundles/linux ./defold-sandbox/
+
+      - name: Publish linux
+        uses: actions/upload-artifact@v3
+        with:
+          name: defold-sandbox-linux.tar.gz
+          path: build/bundles/defold-sandbox-linux.tar.gz
       
       - name: Bundle Web
-        run: java -jar build/bob.jar --platform js-web --architectures js-web,wasm-web bundle
+        run: |
+          java -jar build/bob.jar --platform js-web --architectures js-web,wasm-web --bundle-output build/bundles/web bundle
+          tar -cvf build/bundles/defold-sandbox-web.tar.gz -C build/bundles/web ./defold-sandbox/
+
+      - name: Publish Web
+        uses: actions/upload-artifact@v3
+        with:
+          name: defold-sandbox-web.tar.gz
+          path: build/bundles/defold-sandbox-web.tar.gz
       
       - name: Bundle Mac
-        run: java -jar build/bob.jar --platform x86_64-darwin --architectures x86_64-darwin bundle
+        run: |
+          java -jar build/bob.jar --platform x86_64-darwin --architectures x86_64-darwin --bundle-output build/bundles/mac bundle
+          tar -cvf build/bundles/defold-sandbox-mac.tar.gz -C build/bundles/mac ./defold-sandbox.app
+
+      - name: Publish Mac
+        uses: actions/upload-artifact@v3
+        with:
+          name: defold-sandbox-mac.tar.gz
+          path: build/bundles/defold-sandbox-mac.tar.gz
       
       - name: Bundle iOS
-        run: java -jar build/bob.jar --platform arm64-darwin
+        run: |
+          java -jar build/bob.jar --platform arm64-darwin --bundle-output build/bundles/ios bundle
+
+      - name: Publish iOS
+        uses: actions/upload-artifact@v3
+        with:
+          name: defold-sandbox-ios.ipa
+          path: build/bundles/ios/defold-sandbox.ipa
       
       - name: Bundle Android
-        run: java -jar build/bob.jar --platform armv7-android --architectures armv7-android,arm64-android
+        run: |
+          java -jar build/bob.jar --platform armv7-android --architectures armv7-android,arm64-android --bundle-output build/bundles/android bundle
+
+      - name: Publish Android
+        uses: actions/upload-artifact@v3
+        with:
+          name: defold-sandbox-android.apk
+          path: build/bundles/android/defold-sandbox.apk
         
       - name: Bundle Windows
-        run: java -jar build/bob.jar --platform x86_64-win32 bundle
+        run: |
+          java -jar build/bob.jar --platform x86_64-win32 --bundle-output build/bundles/win bundle
+          tar -cvf build/bundles/defold-sandbox-win.tar.gz -C build/bundles/win ./defold-sandbox/
+
+      - name: Publish Windows
+        uses: actions/upload-artifact@v3
+        with:
+          name: defold-sandbox-win.tar.gz
+          path: build/bundles/defold-sandbox-win.tar.gz
