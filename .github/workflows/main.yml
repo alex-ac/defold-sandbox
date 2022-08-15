@@ -64,7 +64,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: defold-sandbox-android.apk
-          path: build/bundles/android/defold-sandbox.apk
+          path: build/bundles/android/defold-sandbox/defold-sandbox.apk
 
       - name: Bundle Windows
         run: |
