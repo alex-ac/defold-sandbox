@@ -53,4 +53,4 @@ jobs:
         run: java -jar build/bob.jar --platform armv7-android --architectures armv7-android,arm64-android
         
       - name: Bundle Windows
-        run: java -jar build/bob.jar --platform x64_64-win32 bundle
+        run: java -jar build/bob.jar --platform x86_64-win32 bundle
