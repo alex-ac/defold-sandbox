@@ -17,12 +17,3 @@ on:
 jobs:
   build:
     uses: alex-ac/defold-workflows/.github/workflows/build.yaml@master
-    with:
-      defold_version: 1.3.4
-
-      bundle_linux: true
-      bundle_win_x64: true
-      bundle_mac: true
-      bundle_mac_dmg: true
-      bundle_ios: true
-      bundle_android: true
