@@ -80,4 +80,5 @@ jobs:
         input: ./build/${{ matrix.platform }}
         project_name: ${{ env.DEFOLD_PROJECT_NAME }}
         bundle_type: ${{ matrix.bundle_type }}
-        archive_name_platform: ${{ matrix.archive_name_platform }}
+        output_dir: ./build
+        output_name: ${{env.DEFOLD_PROJECT_NAME }}-${{ matrix.archive_name_platform }}
