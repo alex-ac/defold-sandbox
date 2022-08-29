@@ -63,7 +63,7 @@ jobs:
       if: matrix.supports_tests
       timeout-minutes: 5
       with:
-        dmengine: steps.setup_defold.outputs.dmengine
+        dmengine_path: steps.setup_defold.outputs.dmengine
         test_collection: /test/test_main.collectionc
 
       # Setup secrets.
