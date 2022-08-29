@@ -15,8 +15,50 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  setup_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.setup_matrix.outputs.matrix }}
+    steps:
+    - uses: alex-ac/defold-workflows/actions/setup_matrix@master
+      id: setup_matrix
   build:
-    uses: alex-ac/defold-workflows/.github/workflows/build.yaml@master
-    secrets:
-      private_key_base64: ${{ secrets.MANIFEST_PRIVATE_DER_BASE64 }}
-      public_key_base64: ${{ secrets.MANIFEST_PUBLIC_DER_BASE64 }}
+    needs: setup_matrix
+    strategy:
+      matrix: ${{ fromJSON(needs.setup_matrix.outputs.matrix) }}
+    runs-on: ${{ matrix.host_os }}
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+    - uses: dapetcu21/setup-defold@v3.0.2
+
+    - uses: actions/setup_secret
+      if: secrets.private_key_base64
+      id: setup_private_key
+      with:
+        base64_data: ${{ secrets.MANIFEST_PRIVATE_DER_BASE64 }}
+        path: ./manifest.private.der
+    - uses: actions/setup_secret
+      if: secrets.public_key_base64
+      id: setup_public_key
+      with:
+        base64_data: ${{ secrets.MANIFEST_PUBLIC_DER_BASE64 }}
+        path: ./manifest.public.der
+
+    - uses: alex-ac/defold-workflows/actions/build@master
+      timeout-minutes: 10
+      with:
+        output: ./build
+        private_key_path: ${{ steps.setup_private_key.outputs.path }}
+        public_key_path: ${{ steps.setup_public_key.outputs.path }}
+        platform: ${{ matrix.platform }}
+        architectures: ${{ matrix.architectures }}
+        archive_name_platform: ${{ matrix.archive_name_platform }}
+        bundle_type: ${{ matrix.bundle_type }}
