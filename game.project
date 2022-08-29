@@ -13,4 +13,5 @@ input_method = HiddenInputField
 
 [project]
 title = defold-sandbox
+dependencies#0 = https://github.com/britzl/deftest/archive/refs/tags/2.7.2.zip
 
