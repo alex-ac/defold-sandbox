@@ -17,3 +17,6 @@ on:
 jobs:
   build:
     uses: alex-ac/defold-workflows/.github/workflows/build.yaml@master
+    secrets:
+      private_key_base64: ${{ secrets.MANIFEST_PRIVATE_DER_BASE64 }}
+      public_key_base64: ${{ secrets.MANIFEST_PUBLIC_DER_BASE64 }}
