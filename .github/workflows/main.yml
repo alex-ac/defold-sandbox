@@ -78,6 +78,7 @@ jobs:
 
     - uses: alex-ac/defold-workflows/actions/package@master
       timeout-minutes: 5
+      with:
         input: ./build/${{ matrix.platform }}
         project_name: ${{ env.DEFOLD_PROJECT_NAME }}
         bundle_type: ${{ matrix.bundle_type }}
