@@ -39,6 +39,7 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
     - uses: alex-ac/defold-workflows/actions/setup_defold@master
+      id: setup_defold
       with:
         version: stable
         platform: ${{ matrix.platform }}
