@@ -53,25 +53,23 @@ jobs:
     - uses: alex-ac/defold-workflows/actions/resolve_dependencies@master
       timeout-minutes: 5
       with:
-        output: ./build/default
+        output: ./build
 
     - uses: alex-ac/defold-workflows/actions/build@master
       timeout-minutes: 5
       with:
-        output: ./build/default
+        output: ./build
         private_key_path: ${{ steps.setup_private_key.outputs.path }}
         public_key_path: ${{ steps.setup_public_key.outputs.path }}
-        bundle_type: ${{ matrix.bundle_type }}
 
     - uses: alex-ac/defold-workflows/actions/bundle@master
       timeout-minutes: 5
       with:
-        output: ./build/default
+        output: ./build
         private_key_path: ${{ steps.setup_private_key.outputs.path }}
         public_key_path: ${{ steps.setup_public_key.outputs.path }}
         platform: ${{ matrix.platform }}
         architectures: ${{ matrix.architectures }}
-        archive_name_platform: ${{ matrix.archive_name_platform }}
 
     - id: detect_project_name
       uses: alex-ac/defold-workflows/actions/detect_project_name@master
@@ -82,3 +80,4 @@ jobs:
         input: ./build/${{ matrix.platform }}
         project_name: ${{ env.DEFOLD_PROJECT_NAME }}
         bundle_type: ${{ matrix.bundle_type }}
+        archive_name_platform: ${{ matrix.archive_name_platform }}
