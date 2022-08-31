@@ -45,7 +45,7 @@ jobs:
 
     - if: matrix.host_os == 'ubuntu-latest' && matrix.supports_tests
       run: |
-        sudo apt-get install libglu1-mesa libopenal1
+        sudo apt-get install libglu1-mesa libopenal1 xvfb
 
       # Detect project name to use in artifact name.
     - id: detect_project_name
