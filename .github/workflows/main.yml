@@ -74,6 +74,7 @@ jobs:
         output: ./build
         platform: ${{ matrix.platform }}
         architectures: ${{ matrix.architectures }}
+        headless: ${{ true }}
 
       # Run tests.
     - uses: alex-ac/defold-workflows/actions/test@master
