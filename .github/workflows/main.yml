@@ -42,7 +42,6 @@ jobs:
       id: setup_defold
       with:
         version: stable
-        platform: ${{ matrix.platform }}
 
       # Detect project name to use in artifact name.
     - id: detect_project_name
@@ -78,7 +77,7 @@ jobs:
       timeout-minutes: 5
       with:
         bundle_path: ./build/${{ matrix.platform }}
-        platferm: ${{ matrix.platform }}
+        platform: ${{ matrix.platform }}
         project_name: ${{ env.DEFOLD_PROJECT_NAME }}
         test_collection: /test/test_main.collectionc
 
