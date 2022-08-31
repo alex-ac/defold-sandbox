@@ -46,6 +46,7 @@ jobs:
 
       # Download all dependencies.
     - uses: alex-ac/defold-workflows/actions/resolve_dependencies@master
+      if: matrix.supports_tests
       timeout-minutes: 5
       with:
         output: ./build
@@ -56,15 +57,33 @@ jobs:
       timeout-minutes: 5
       with:
         output: ./build
-        args: --keep-unused
+        keep_unused: ${{ true }}
+
+      # Bundle game for active platform.
+    - uses: alex-ac/defold-workflows/actions/bundle@master
+      if: matrix.supports_tests
+      timeout-minutes: 5
+      with:
+        output: ./build
+        platform: ${{ matrix.platform }}
+        architectures: ${{ matrix.architectures }}
 
       # Run tests.
     - uses: alex-ac/defold-workflows/actions/test@master
       if: matrix.supports_tests
       timeout-minutes: 5
       with:
-        dmengine_path: ${{ steps.setup_defold.outputs.dmengine }}
+        bundle_path: ./build/${{ matrix.platform }}
+        platferm: ${{ matrix.platform }}
         test_collection: /test/test_main.collectionc
+
+    - run: [ -e  .build/ ] || rm -rf .build/
+
+      # Download all dependencies.
+    - uses: alex-ac/defold-workflows/actions/resolve_dependencies@master
+      timeout-minutes: 5
+      with:
+        output: ./build
 
       # Setup secrets.
     - uses: alex-ac/defold-workflows/actions/setup_secret@master
