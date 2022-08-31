@@ -86,8 +86,10 @@ jobs:
         project_name: ${{ env.DEFOLD_PROJECT_NAME }}
         test_collection: /test/test_main.collectionc
 
-    - run: |
-        [ -e  .build/ ] || rm -rf .build/
+      # Cleanup test build.
+    - uses: alex-ac/defold-workflows/actions/cleanup@master
+      with:
+        path: ./build
 
       # Download all dependencies.
     - uses: alex-ac/defold-workflows/actions/resolve_dependencies@master
