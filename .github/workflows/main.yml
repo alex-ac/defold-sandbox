@@ -74,7 +74,7 @@ jobs:
         output: ./build
         platform: ${{ matrix.platform }}
         architectures: ${{ matrix.architectures }}
-        headless: ${{ true }}
+        headless: ${{ matrix.platform != 'x86-win32' }}
 
       # Run tests.
     - uses: alex-ac/defold-workflows/actions/test@master
