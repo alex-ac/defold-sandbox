@@ -44,6 +44,10 @@ jobs:
         version: stable
         platform: ${{ matrix.platform }}
 
+      # Detect project name to use in artifact name.
+    - id: detect_project_name
+      uses: alex-ac/defold-workflows/actions/detect_project_name@master
+
       # Download all dependencies.
     - uses: alex-ac/defold-workflows/actions/resolve_dependencies@master
       if: matrix.supports_tests
@@ -75,6 +79,7 @@ jobs:
       with:
         bundle_path: ./build/${{ matrix.platform }}
         platferm: ${{ matrix.platform }}
+        project_name: ${{ env.DEFOLD_PROJECT_NAME }}
         test_collection: /test/test_main.collectionc
 
     - run: [ -e  .build/ ] || rm -rf .build/
@@ -114,10 +119,6 @@ jobs:
         public_key_path: ${{ steps.setup_public_key.outputs.path }}
         platform: ${{ matrix.platform }}
         architectures: ${{ matrix.architectures }}
-
-      # Detect project name to use in artifact name.
-    - id: detect_project_name
-      uses: alex-ac/defold-workflows/actions/detect_project_name@master
 
       # Package artifact.
     - uses: alex-ac/defold-workflows/actions/package@master
