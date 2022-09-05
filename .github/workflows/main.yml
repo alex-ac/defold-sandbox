@@ -64,6 +64,8 @@ jobs:
       timeout-minutes: 5
       with:
         output: ./build
+        platform: ${{ matrix.platform }}
+        architectures: ${{ matrix.architectures }}
         keep_unused: ${{ true }}
 
       # Bundle game for active platform.
@@ -114,6 +116,8 @@ jobs:
       timeout-minutes: 5
       with:
         output: ./build
+        platform: ${{ matrix.platform }}
+        architectures: ${{ matrix.architectures }}
         private_key_path: ${{ steps.setup_private_key.outputs.path }}
         public_key_path: ${{ steps.setup_public_key.outputs.path }}
 
